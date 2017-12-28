@@ -34,9 +34,8 @@ function delteUser($user_id){
 	$query_delete_user="DELETE FROM users WHERE user_id=$user_id";
 	$result_delete_user=mysqli_query($dbconn, $query_delete_user);
 	if(!$result_delete_user){
-		die("<span class='text-danger'>
-		Gabim gjat modifikimit te perdoruesit" . mysqli_error($dbconn).
-		"</span>");
+		$_SESSION['mesazhi'] = "Përdoruesi {$firstname} {$lastname} nuk mund te fshihet";
+		header("Location: users.php");
 	}
 	else{
 		$_SESSION['mesazhi'] = "Përdoruesi {$firstname} {$lastname} u fshi me sukses";

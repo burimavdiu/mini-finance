@@ -25,6 +25,20 @@
         </li>
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-files-o"></i>
+            <span class="nav-link-text">Lista e faturave</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseUsers">
+            <li>
+              <a href="sales.php">Lista e përdoruesve</a>
+            </li>
+            <li>
+              <a href="sales.php?source=add_sale">Shto Përdorues</a>
+            </li>
+          </ul>
+        </li>
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>
             <span class="nav-link-text">Përdoruesit</span>
           </a>
