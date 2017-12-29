@@ -23,17 +23,32 @@
             <span class="nav-link-text">Tables</span>
           </a>
         </li>
-		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
-          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers" data-parent="#exampleAccordion">
+		
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sales">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSales" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-files-o"></i>
-            <span class="nav-link-text">Lista e faturave</span>
+            <span class="nav-link-text">Lista e Shitjeve</span>
           </a>
-          <ul class="sidenav-second-level collapse" id="collapseUsers">
+          <ul class="sidenav-second-level collapse" id="collapseSales">
             <li>
-              <a href="sales.php">Lista e përdoruesve</a>
+              <a href="sales.php">Lista e Shitjeve</a>
             </li>
             <li>
-              <a href="sales.php?source=add_sale">Shto Përdorues</a>
+              <a href="sales.php?source=add_sale">Shto Shitje</a>
+            </li>
+          </ul>
+        </li>
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Clients">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseClients" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Klientët</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseClients">
+            <li>
+              <a href="clients.php">Lista e Klientëve</a>
+            </li>
+            <li>
+              <a href="clients.php?source=add_client">Shto Klient</a>
             </li>
           </ul>
         </li>

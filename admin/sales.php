@@ -29,7 +29,7 @@
 				break;
 				
 				default:
-				include "includes/view_all_users.php";
+				include "includes/view_all_sales.php";
 				break;
 			 }
 			?>
