@@ -23,7 +23,20 @@
             <span class="nav-link-text">Tables</span>
           </a>
         </li>
-		
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="services">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseServices" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Konfigurimet</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseServices">
+            <li>
+              <a href="clients.php">Sherbimet</a>
+            </li>
+            <li>
+              <a href="clients.php?source=add_client">Kompani</a>
+            </li>
+          </ul>
+        </li>
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Sales">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseSales" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-files-o"></i>
