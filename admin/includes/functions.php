@@ -1,4 +1,5 @@
 <?php
+/* ----User------ */
 function addUser($firstname,$lastname,$dep_id,$password,$email,$username,$phone,$registrar_id){
 	global $dbconn;
 	$query_add_user="INSERT INTO users(firstname,lastname,dep_id,password,email,username,phone,reg_id) VALUES('$firstname','$lastname', $dep_id,'$password','$email','$username','$phone', $registrar_id)";
@@ -62,4 +63,32 @@ function findDepartments(){
 	$query_dep="SELECT dep_id, dep_name FROM departments";
 	return $result_all_dep=mysqli_query($dbconn,$query_dep);
 }
+/* ----End-User------ */
+
+/* ----Clients------ */
+function addClient($client,$contactPerson,$position,$firstAddress,$city,$state,$phone,
+	$mobPhone,$email,$web,$clientRegistrationNo,$fiscalNo,$vatNo,$registrar_id){
+	
+	global $dbconn;
+	$query_add_client="INSERT INTO clients(client,contact_person,job_position,address_1," .
+		"city,state,tel_no,mobile_no,client_email,client_web,business_register_no,fiscal_no,vat_no,user_id,registration_date)" .
+		"VALUES('$client','$contactPerson','$position','$firstAddress','$city','$state','$phone', ".
+			"'$mobPhone','$email','$web','$clientRegistrationNo','$fiscalNo','$vatNo',$registrar_id,Now())";
+	
+	$result_add_client=mysqli_query($dbconn, $query_add_client);
+	if(!$result_add_client){
+		die("<span class='text-danger'>Gabim gjatë shtimit të klientit: ".mysqli_error($dbconn)."</span>");
+	} else { 
+		$_SESSION['mesazhi'] = "Klienti {$client} u shtua me sukses";
+		header("Location: clients.php");
+    }
+}
+
+function findClients(){
+	global $dbconn;
+	$query_clients="SELECT * FROM clients";
+	return $result_all_clients=mysqli_query($dbconn,$query_clients);
+}
+/* ----End-Clients------ */
+
 ?>
