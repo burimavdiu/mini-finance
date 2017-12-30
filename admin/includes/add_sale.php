@@ -13,37 +13,98 @@
 		<div class="card-header h4">Fatura</div>
 		<div class="card-body mx-5">
 			<form action="" method="POST">  
-                <div class="box box-primary">  
-                     
-                    <div class="box-body">  
-                        <div class="form-group">  
-                            ReceiptName  
-                            <input type="text" name="name" class="form-control">  
-                        </div>  
-                        <div class="form-group">  
-							Location  
-                            <input type="text" name="location" class="form-control">  
-                        </div>  
-                    </div>  
-                    <input type="submit" class="btnbtn-primary" name="save" value="Save Record">  
-                </div><br/>  
+                <div class="form-group">
+					<div class="form-row">
+					  <div class="col-md-4">
+						<label class="h6" for="salesno">Nr. i Faturës: </label>
+						<input name="salesno" class="form-control" id="salesno" type="text" aria-describedby="nameHelp">
+					  </div>
+					  <div class="col-md-4">
+						<label class="h6" for="lastname">Data e fatures: </label>
+						<input name="salesdate" class="form-control" id="salesdate" 
+						type="date" aria-describedby="nameHelp">
+					  </div>
+					  <div class="col-md-4">
+						<label class="h6" for="salestype">Lloji i Faturës: </label>
+						<select name="salestype" class="form-control"  id="salestype">
+							<option value=''> zgjedh opsionin </option>
+							<option value='pro-fature'> pro-fature </option>
+							<option value='fature'> fature </option>
+						</select>
+					  </div>
+					</div>
+				</div>
+				<div class="form-group">
+					<div class="form-row">
+					  <div class="col-md-6">
+						<label for="client">Klienti :</label>
+						<?php
+							echo '<select name="clients" class="form-control"  id="clients">';
+							$clients=findClients();
+							
+							while($client=mysqli_fetch_array($clients)){
+								echo "<option value='".$client['client_id']."'> ".$client['contact_person']. "</option>";
+							}
+							echo '</select>';
+						?>
+					  </div>
+					  <div class="col-md-6">
+						<label for="description">Pershkrimi :</label>
+						<input name="description" class="form-control" id="description" 
+						type="text" aria-describedby="nameHelp">
+					  </div>
+					</div>
+				</div>
+				<div class="form-group">
+					
+				</div>
+				  <div class="form-group">
+					<div class="form-row">
+					  <div class="col-md-6">
+						<label class="h6" for="salestype">Lloji i Faturës: </label>
+						<select name="salestype" class="form-control"  id="salestype">
+							<option value=''> zgjedh opsionin </option>
+							<option value='pro-fature'> pro-fature </option>
+							<option value='fature'> fature </option>
+						</select>
+					  </div>
+					  <div class="col-md-6">
+						<label for="reference">Referenca :</label>
+						<input name="reference" class="form-control" id="reference" 
+						type="text" aria-describedby="nameHelp">
+					  </div>
+					  </div>
+					</div>
+				</div>
                 <table class="table table-bordered table-hover">  
-					<thead>  
-						<th>No</th>  
-						<th>Product Name</th>  
-						<th>Quantity</th>  
-						<th>Price</th>  
-						<th>Discount</th>  
-						<th>Amount</th>  
+					<thead>    
+						<th>Sherbimi</th>  
+						<th>Pershkrimi</th>  
+						<th>Njesia</th>
+						<th>Cmimi</th>
+						<th>Sasia</th>						
+						<th>Total</th> 
 						<th><input type="button" value="+" id="add" class="btnbtn-primary"></th>  
 					</thead>  
                     <tbody class="detail">  
-						<tr>  
-							<td class="no">1</td>  
-							<td><input type="text" class="form-control productname" name="productname[]"></td>  
+						<tr>   
+							<td>
+							<?php
+								echo '<select name="services[]" class="form-control" id="services">';
+								echo "<option value=''> zgjedh opsionin </option>";
+								$services=findServices();
+								
+								while($service=mysqli_fetch_array($services)){
+									echo "<option value='".$service['service_id']."'> "
+									.$service['service_name']. "</option>";
+								}
+								echo '</select>';
+							?>
+							</td>  
 							<td><input type="text" class="form-control quantity" name="quantity[]"></td>  
 							<td><input type="text" class="form-control price" name="price[]"></td>  
-							<td><input type="text" class="form-control discount" name="discount[]"></td>  
+							<td><input type="text" class="form-control discount" name="discount[]"></td>
+							<td><input type="text" class="form-control discount" name="discount[]"></td>		
 							<td><input type="text" class="form-control amount" name="amount[]"></td>  
 							<td><a href="#" class="remove">Delete</td>  
 						</tr>  
@@ -61,6 +122,7 @@
 			</form>  
       </div>
     </div>
+	<?php $temp = findServicesJS()?>
 	<script type="text/javascript">  
 		$(function(){  
 			$('#add').click(function(){  
@@ -91,12 +153,22 @@
 		}  	
 		function addnewrow()   
 		{  
-			var n=($('.detail tr').length-0)+1;  
+			//var json_array = <?php echo json_encode($temp, true);?>;
+			//var n=($('.detail tr').length-0)+1;  
+			//'<td class="no">'+n+'</td>'+	
 			vartr = '<tr>'+  
-			'<td class="no">'+n+'</td>'+  
-			'<td><input type="text" class="form-control productname" name="productname[]"></td>'+  
+			'<td><?php
+				echo '<select name="services[]" class="form-control" id="services">';
+				echo '<option value=""> zgjedh opsionin </option>';
+				$services=findServices();
+				while($service=mysqli_fetch_array($services)){
+					echo '<option value="'.$service['service_id'].'"> '
+					.$service['service_name']. '</option>';
+				}
+				echo '</select>';?></td>'+  
 			'<td><input type="text" class="form-control quantity" name="quantity[]"></td>'+  
 			'<td><input type="text" class="form-control price" name="price[]"></td>'+  
+			'<td><input type="text" class="form-control discount" name="discount[]"></td>'+
 			'<td><input type="text" class="form-control discount" name="discount[]"></td>'+  
 			'<td><input type="text" class="form-control amount" name="amount[]"></td>'+  
 			'<td><a href="#" class="remove">Delete</td>'+  

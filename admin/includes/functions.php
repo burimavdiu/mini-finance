@@ -62,4 +62,26 @@ function findDepartments(){
 	$query_dep="SELECT dep_id, dep_name FROM departments";
 	return $result_all_dep=mysqli_query($dbconn,$query_dep);
 }
+
+function findClients(){
+	global $dbconn;
+	$query_clients="SELECT * FROM clients";
+	return $result_all_clients=mysqli_query($dbconn,$query_clients);
+}
+function findServices(){
+	global $dbconn;
+	$query_services="SELECT * FROM services";
+	return $result_all_services=mysqli_query($dbconn,$query_services);
+}
+
+function findServicesJS(){
+	$services=findServices();
+	
+	$result_array = array();	
+	while($service=mysqli_fetch_array($services)){
+		$result_array[$service['service_id']] = $service['service_name'];
+	}
+	//convert the PHP array into JSON format, so it works with javascript
+    return $result_array;
+}
 ?>
