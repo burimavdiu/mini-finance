@@ -71,11 +71,11 @@
 				<div class="form-row">	
 					<div class="form-group col-md-6">
 						<label class="control-label h6" for="phone">Telofoni i punes:</label>
-						<input name="phone" class="form-control" id="phone" type="text" value="<?php if(!empty($position)) echo $position;?>" />
+						<input name="phone" class="form-control" id="phone" type="text" value="<?php if(!empty($phone)) echo $phone;?>" />
 					</div>
 					<div class="form-group col-md-6">
 						<label class="control-label h6" for="mobPhone">Telofoni mobil:</label>
-						<input name="mobPhone" class="form-control" id="mobPhone" type="text" value="<?php if(!empty($phone)) echo $phone;?>" />
+						<input name="mobPhone" class="form-control" id="mobPhone" type="text" value="<?php if(!empty($mobile_no)) echo $mobile_no;?>" />
 					</div>
 				</div>
 				<div class="form-row">	
