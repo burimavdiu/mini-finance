@@ -66,14 +66,14 @@ function findDepartments(){
 /* ----End-User------ */
 
 /* ----Clients------ */
-function addClient($client,$contactPerson,$position,$firstAddress,$city,$state,$phone,
-	$mobPhone,$email,$web,$clientRegistrationNo,$fiscalNo,$vatNo,$registrar_id){
+function addClient($client,$contact_person,$position,$client_address,$city,$state,$phone,
+	$mobile_no,$email,$web,$client_registration_no,$fiscal_no,$vat_no,$registrar_id){
 	
 	global $dbconn;
 	$query_add_client="INSERT INTO clients(client,contact_person,job_position,address_1," .
 		"city,state,tel_no,mobile_no,client_email,client_web,business_register_no,fiscal_no,vat_no,user_id,registration_date)" .
-		"VALUES('$client','$contactPerson','$position','$firstAddress','$city','$state','$phone', ".
-			"'$mobPhone','$email','$web','$clientRegistrationNo','$fiscalNo','$vatNo',$registrar_id,Now())";
+		"VALUES('$client','$contact_person','$position','$client_address','$city','$state','$phone', ".
+			"'$mobile_no','$email','$web','$client_registration_no','$fiscal_no','$vat_no',$registrar_id,Now())";
 	
 	$result_add_client=mysqli_query($dbconn, $query_add_client);
 	if(!$result_add_client){
@@ -88,6 +88,42 @@ function findClients(){
 	global $dbconn;
 	$query_clients="SELECT * FROM clients";
 	return $result_all_clients=mysqli_query($dbconn,$query_clients);
+}
+
+function delteClient($client_id){
+	global $dbconn;
+	$query_delete_client="DELETE FROM clients WHERE client_id=$client_id";
+	$result_delete_client=mysqli_query($dbconn, $query_delete_client);
+	
+	if(!$result_delete_client){
+		$_SESSION['mesazhi'] = "Klienti -- nuk mund te fshihet";
+		header("Location: clients.php");
+	}
+	else{
+		$_SESSION['mesazhi'] = "Klienti -- u fshi me sukses";
+		header("Location: clients.php");
+	}	
+}
+
+function updateClient($client_id,$client,$contact_person,$position,$client_address,$city,$state,$phone,
+	$mobile_no,$email,$web,$client_registration_no,$fiscal_no,$vat_no){
+	global $dbconn;
+	$query_update_client="UPDATE clients SET client='$client',contact_person='$contact_person',
+	job_position='$position',address_1='$client_address',city='$city',state='$state',tel_no='$phone'," .
+	"mobile_no='$mobile_no',client_email='$email',client_web='$web',business_register_no='$client_registration_no',".
+	"fiscal_no='$fiscal_no',vat_no='$vat_no' 
+     WHERE client_id=$client_id";
+
+	$result_update_client=mysqli_query($dbconn, $query_update_client);
+	if(!$result_update_client){
+		die("<span class='text-danger'>
+		Gabim gjat modifikimit te klientit" . mysqli_error($dbconn).
+		"</span>");
+	}
+	else{
+		$_SESSION['mesazhi'] = "Klienti {$client } u modifikua me sukses";
+		header("Location: clients.php");
+	}	
 }
 /* ----End-Clients------ */
 
