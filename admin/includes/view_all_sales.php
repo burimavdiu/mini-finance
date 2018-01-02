@@ -24,40 +24,46 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
               <thead>
                 <tr>
-                  <th>Emri</th>
-                  <th>Mbiemri</th>
-                  <th>Email</th>
-                  <th>Telefoni</th>
-                  <th>Perdoruesi</th>
+                  <th>Nr Fatures</th>
+                  <th>Data e Fatures</th>
+                  <th>Klienti</th>
+                  <th>Pershkrimi</th>
+				  <th>Shuma</th>
+				  <th>Data e Pageses</th>
+				  <th>Statusi</th>
                   <th>Edit</th>
 				  <th>Delete</th>
                 </tr>
               </thead>
               <tfoot>
                 <tr>
-                  <th>Emri</th>
-                  <th>Mbiemri</th>
-                  <th>Email</th>
-                  <th>Telefoni</th>
-                  <th>Perdoruesi</th>
+                  <th>Nr Fatures</th>
+                  <th>Data e Fatures</th>
+                  <th>Klienti</th>
+                  <th>Pershkrimi</th>
+				  <th>Shuma</th>
+				  <th>Data e Pageses</th>
+				  <th>Statusi</th>
                   <th>Edit</th>
 				  <th>Delete</th>
                 </tr>
               </tfoot>
               <tbody>
 				<?php
-				$users=findUsers();
-				while($user=mysqli_fetch_array($users)){
-				$user_id=$user['user_id'];
+				$sales=findSales();
+				while($sale=mysqli_fetch_array($sales)){
+				$sale_id=$sale['sale_id'];
 				echo "<tr>";
 				
-				echo "<td>".  $user['firstname'] . "</td>";
-				echo "<td>".  $user['lastname'] . "</td>";
-				echo "<td>".  $user['email'] . "</td>";
-				echo "<td>".  $user['phone'] . "</td>";
-				echo "<td>".  $user['username'] . "</td>";
-				echo "<td><a href='users.php?source=edit_user&user_id=$user_id'>Edit</a></td>";
-				echo "<td><a href='users.php?user_id=$user_id'
+				echo "<td>".  $sale['sale_id'] . "</td>";
+				echo "<td>".  $sale['sale_date'] . "</td>";
+				echo "<td>".  $sale['client'] . "</td>";
+				echo "<td>".  $sale['description'] . "</td>";
+				echo "<td>".  $sale['sale_id'] . "</td>";
+				echo "<td>".  $sale['payment_date'] . "</td>";
+				echo "<td>".  $sale['status'] . "</td>";
+				echo "<td><a href='sales.php?source=edit_sale&sale_id=$sale_id'>Edit</a></td>";
+				echo "<td><a href='sales.php?sale_id=$sale_id'
 					data-toggle='modal'
 				data-target='#confirm-delete' class='confirm-delete'>Delete</a></td>";
 				
