@@ -63,8 +63,7 @@ function findDepartments(){
 	return $result_all_dep=mysqli_query($dbconn,$query_dep);
 }
 
-<<<<<<< HEAD
-=======
+
 function findClients(){
 	global $dbconn;
 	$query_clients="SELECT * FROM clients";
