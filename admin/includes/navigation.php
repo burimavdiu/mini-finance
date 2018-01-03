@@ -33,7 +33,7 @@
               <a href="clients.php">Sherbimet</a>
             </li>
             <li>
-              <a href="services.php?source=company">Kompania</a>
+              <a href="configurations.php?source=company">Kompania</a>
             </li>
           </ul>
         </li>
