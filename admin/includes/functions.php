@@ -62,4 +62,5 @@ function findDepartments(){
 	$query_dep="SELECT dep_id, dep_name FROM departments";
 	return $result_all_dep=mysqli_query($dbconn,$query_dep);
 }
+
 ?>

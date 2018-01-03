@@ -65,6 +65,20 @@
             </li>
           </ul>
         </li>
+		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Clients">
+          <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseCompanies" data-parent="#exampleAccordion">
+            <i class="fa fa-fw fa-users"></i>
+            <span class="nav-link-text">Kompanitë</span>
+          </a>
+          <ul class="sidenav-second-level collapse" id="collapseCompanies">
+            <li>
+              <a href="companies.php">Lista e Kompanive</a>
+            </li>
+            <li>
+              <a href="companies.php?source=add_company">Shto Kompani</a>
+            </li>
+          </ul>
+        </li>
 		<li class="nav-item" data-toggle="tooltip" data-placement="right" title="Users">
           <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#collapseUsers" data-parent="#exampleAccordion">
             <i class="fa fa-fw fa-users"></i>
