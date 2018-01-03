@@ -1,144 +1,167 @@
-
-	<?php
-		
-		//$company_res=findComapany();
-		//$user=mysqli_fetch_assoc($company_res);
-		/*$firstname=$user['firstname'];
-		$lastname=$user['lastname'];
-		$dep_id=$user['dep_id'];
-		$dep_name=$user['dep_name'];
-		
-		$phone=$user['phone'];
-		$email=$user['email'];
-		$username=$user['username'];
-		$password=$user['password'];
-		*/
-		$mesazhi="";
-		if(isset($_POST['updateCompany'])){
-			
-			$mesazhi=updateUser($_POST['user_id'],$_POST['firstname'],$_POST['lastname'],
-			$_POST['departments'],$_POST['password'],$_POST['email'],
-			$_POST['username'],$_POST['phone'],$registrar);
-		}
-		
-	?>
-	<!-- card-register forma e regjistrimit--> 
-    <div class="card  mx-auto mt-30 ">
-      <div class="card-header h4">Konfigurimi Kompania</div>
-      <div class="card-body mx-5">
-        <form method="post" id="updateuser">		  
-		   <input name="user_id" value="<?php if(!empty($user_id)) echo $user_id;?>"
-				class="form-control" id="user_id" type="hidden">
-		  <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <label class="h6" for="firstname">Emri: </label>
-                <input name="firstname" value="<?php if(!empty($firstname)) echo $firstname;?>"
-				class="form-control" id="firstname" type="text">
-              </div>
-              <div class="col-md-6">
-                <label class="h6" for="lastname">Mbiemri: </label>
-                <input name="lastname" value="<?php if(!empty($lastname)) echo $lastname;?>" 
-				class="form-control" id="lastname" type="text" aria-describedby="nameHelp">
-              </div>
-            </div>
-          </div>
-            <div class="form-group">
-            <label for="department">Departamenti :</label>
-            <?php
-                echo '<select name="departments" class="form-control"  id="department">';
-				echo "<option value='".$dep_id."'> ". $dep_name . "</option>";
-				$departments=findDepartments();
-				
-                while($dep=mysqli_fetch_array($departments)){
-                    if($dep_id!=$dep['dep_id']){
-						echo "<option value='".$dep['dep_id']."'> ".$dep['dep_name']. "</option>";
-					}
-                }
-                echo '</select>';
-            ?>
-          </div>
-          <div class="form-group">
-            <label class="h6" for="email">Email :</label>
-            <input name="email" value="<?php if(!empty($email)) echo $email;?>" 
-			class="form-control" id="email" type="text" aria-describedby="emailHelp" >
-          </div>
-		  <div class="form-group">
-            <label class="h6" for="phone">Telefoni :</label>
-            <input name="phone" value="<?php if(!empty($phone)) echo $phone;?>"
-			class="form-control" id="phone" type="text" aria-describedby="telefoniHelp" >
-          </div>
-		   <div class="form-group">
-            <label class="h6" for="username">Përdoruesi :</label>
-            <input name="username" value="<?php if(!empty($username)) echo $username;?>" 
-			class="form-control" id="username" type="text" aria-describedby="perdoruesiHelp" >
-          </div>
-          <div class="form-group">
-            <div class="form-row">
-              <div class="col-md-6">
-                <label class="h6" for="password">Fjalëkalimi :</label>
-                <input name="password" value="<?php if(!empty($password)) echo $password;?>"
-				class="form-control" id="password" type="password">
-              </div>
-              <div class="col-md-6">
-                <label class="h6" for="confirmPassword">Konfirmo Fjalëkalimin :</label>
-                <input class="form-control" value="<?php if(!empty($password)) echo $password;?>"
-				id="confirmPassword" type="password">
-              </div>
-            </div>
-            </div>
-						
-			<div class="alert alert-danger d-none jmesazhi">
-			  <span id="message"></span>
-			</div>
-			
-		  <input name="updateUser" type="submit" class="btn btn-primary btn-block" value="Modifiko">
-        </form>
+<?php
+    $company_res=findCompany();
+    if (!$company=mysqli_fetch_assoc($company_res)) {
+        die("Gabim gjatë leximit të kompanisë");
+    }
+    $company_id=$company["company_id"];
+    $mesazhi="";
+    if (isset($_SESSION['mesazhi'])){?>		
+      <div class="alert alert-success malert">
+          <?php echo $_SESSION['mesazhi'];
+            unset($_SESSION['mesazhi']);
+          ?>
       </div>
-    </div>
-	<script>
-	$("#updateuser").submit(function () {
-       
-		
-		kontrollues=false;
-		function validateEmail($email) {
-		  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-		  return emailReg.test( $email );
-		}
-		if ($("#firstname").val() == "") {
-            message="Ju lutem plotësoni emrin<br>";
-            kontrollues=true;
-        }
-		if ($("#lastname").val() == "") {
-            message+="Ju lutem plotësoni mbiemrin<br>";
-            kontrollues=true;
-        }
-		if ($("#email").val() == "" || !validateEmail($("#email").val())) {
-            message+="Ju lutem plotësoni | verifikoni email-in<br>";
-            kontrollues=true;
-        }		
-		
-		if ($("#phone").val() == "") {
-            message+="Ju lutem plotësoni telefonin<br>";
-            kontrollues=true;
-        }
-		if ($("#username").val() == "") {
-            message+="Ju lutem plotësoni perdoruesin<br>";
-            kontrollues=true;
-        }
-	if ($("#password").val() == "" || 
-		($("#password").val()!=$("#confirmPassword").val()) ) {
-            message+="Ju lutem plotësoni | verifikoni fjalekalimin<br>";
-            kontrollues=true;
-        }
-		
-		if(kontrollues){
-			$(".jmesazhi").removeClass("d-none");
-			$("#message").html(message);
-			return false;
-		}else{
-			return true;
-		}
-		
-    });
-  </script>
+<?php }
+    if(isset($_POST['updateCompany'])) {
+        $mesazhi=updateCompany($_POST["company_id"], $_POST["company_name"], $_POST["address_1"], $_POST["address_2"], $_POST["tel_no"], $_POST["mobile_no"], $_POST["fax_no"], $_POST["business_no"], $_POST["vat"], $_POST["fiscal_no"], $_POST["bank_acc_1"], $_POST["bank_acc_2"], $_POST["company_email"], $_POST["company_web"], $_POST["logo_upload"]);
+    }
+?>
+<!-- card-register forma e regjistrimit--> 
+<div class="card  mx-auto mt-30 ">
+  <div class="card-header h4">Konfigurimi Kompania</div>
+  <div class="card-body mx-5">
+    <form method="post" id="updatecompany">		  
+       <input name="company_id" value="<?php if(!empty($company_id)) echo $company_id;?>"
+            class="form-control" id="company_id" type="hidden">
+      <div class="form-group">
+        <div class="form-row mb-3">
+          <div class="col-md-4">
+            <label class="h6" for="company_name">Emri:</label>
+            <input name="company_name" value="<?php if(!empty($company["company_name"])) echo $company["company_name"];?>"
+            class="form-control" id="company_name" type="text">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="address_1">Adresa 1:</label>
+            <input name="address_1" value="<?php if(!empty($company["address_1"])) echo $company["address_1"];?>" 
+            class="form-control" id="address_1" type="text" aria-describedby="nameHelp">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="address_2">Adresa 2:</label>
+            <input name="address_2" value="<?php if(!empty($company["address_2"])) echo $company["address_2"];?>" 
+            class="form-control" id="address_2" type="text" aria-describedby="nameHelp">
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="col-md-4">
+            <label class="h6" for="tel_no">Telefoni fiks:</label>
+            <input name="tel_no" value="<?php if(!empty($company["tel_no"])) echo $company["tel_no"];?>"
+            class="form-control" id="tel_no" type="text">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="mobile_no">Telefoni mobil:</label>
+            <input name="mobile_no" value="<?php if(!empty($company["mobile_no"])) echo $company["mobile_no"];?>" 
+            class="form-control" id="mobile_no" type="text" aria-describedby="nameHelp">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="fax_no">Faksi:</label>
+            <input name="fax_no" value="<?php if(!empty($company["fax_no"])) echo $company["fax_no"];?>" 
+            class="form-control" id="fax_no" type="text" aria-describedby="nameHelp">
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="col-md-4">
+            <label class="h6" for="business_no">Numri i biznesit:</label>
+            <input name="business_no" value="<?php if(!empty($company["business_no"])) echo $company["business_no"];?>"
+            class="form-control" id="business_no" type="text">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="vat">TVSH:</label>
+            <input name="vat" value="<?php if(!empty($company["vat"])) echo $company["vat"];?>" 
+            class="form-control" id="vat" type="text" aria-describedby="nameHelp">
+          </div>
+          <div class="col-md-4">
+            <label class="h6" for="fiscal_no">Numri fiskal:</label>
+            <input name="fiscal_no" value="<?php if(!empty($company["fiscal_no"])) echo $company["fiscal_no"];?>" 
+            class="form-control" id="fiscal_no" type="text" aria-describedby="nameHelp">
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="col-md-6">
+            <label class="h6" for="bank_acc_1">Llogaria bankare 1:</label>
+            <input name="bank_acc_1" value="<?php if(!empty($company["bank_acc_1"])) echo $company["bank_acc_1"];?>"
+            class="form-control" id="bank_acc_1" type="text">
+          </div>
+          <div class="col-md-6">
+            <label class="h6" for="bank_acc_2">Llogaria bankare 2:</label>
+            <input name="bank_acc_2" value="<?php if(!empty($company["bank_acc_2"])) echo $company["bank_acc_2"];?>" 
+            class="form-control" id="bank_acc_2" type="text" aria-describedby="nameHelp">
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="col-md-6">
+            <label class="h6" for="company_email">Email-i:</label>
+            <input name="company_email" value="<?php if(!empty($company["company_email"])) echo $company["company_email"];?>"
+            class="form-control" id="company_email" type="text">
+          </div>
+          <div class="col-md-6">
+            <label class="h6" for="company_web">Web-i:</label>
+            <input name="company_web" value="<?php if(!empty($company["company_web"])) echo $company["company_web"];?>" 
+            class="form-control" id="company_web" type="text" aria-describedby="nameHelp">
+          </div>
+        </div>
+        <div class="form-row mb-3">
+          <div class="col-md-6">
+            <label class="h6" for="logo">Logo</label>
+            <img name="logo" src="../images/ticklogo.png"
+            class="form-control" id="logo" alt="Company logo">
+          </div>
+          <div class="col-md-6">
+            <label class="h6" for="logo_upload">Zgjedh logo tjetër</label>
+            <input name="logo_upload" class="form-control" id="logo_upload" type="file">
+          </div>
+        </div>
+      </div>	
+        <div class="alert alert-danger d-none jmesazhi">
+          <span id="message"></span>
+        </div>
+      <input name="updateCompany" type="submit" class="btn btn-primary btn-block" value="Modifiko">
+    </form>
+  </div>
+</div>
+<script>
+$("#updatecompany").submit(function () {
+    kontrollues=false;
+    function validateEmail($email) {
+      var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+      return emailReg.test( $email );
+    }
+    if ($("#company_name").val() == "") {
+        message="Ju lutem plotësoni emrin e kompanisë<br>";
+        kontrollues=true;
+    }
+    if ($("#address_1").val() == "") {
+        message+="Ju lutem plotësoni një adresë<br>";
+        kontrollues=true;
+    }
+    if ($("#email").val() == "" || !validateEmail($("#email").val())) {
+        message+="Ju lutem plotësoni | verifikoni email-in<br>";
+        kontrollues=true;
+    }		
+
+    if ($("#phone").val() == "") {
+        message+="Ju lutem plotësoni telefonin<br>";
+        kontrollues=true;
+    }
+    if ($("#username").val() == "") {
+        message+="Ju lutem plotësoni perdoruesin<br>";
+        kontrollues=true;
+    }
+    if ($("#password").val() == "" || 
+    ($("#password").val()!=$("#confirmPassword").val()) ) {
+        message+="Ju lutem plotësoni | verifikoni fjalekalimin<br>";
+        kontrollues=true;
+    }
+
+    if(kontrollues){
+        $(".jmesazhi").removeClass("d-none");
+        $("#message").html(message);
+        return false;
+    }else{
+        return true;
+    }
+
+});
+setTimeout(function(){
+    $('.malert').addClass('d-none');
+}, 8000);
+</script>

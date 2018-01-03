@@ -1,5 +1,6 @@
 <?php include "../includes/db.php";?>
 <?php include "functions.php";?>
+<?php include "funcflorenti.php";?>
 <?php ob_start();
 	session_start();
     if (!isset($_SESSION["user"])) {
