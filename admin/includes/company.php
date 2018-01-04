@@ -20,7 +20,7 @@
 <div class="card  mx-auto mt-30 ">
   <div class="card-header h4">Konfigurimi Kompania</div>
   <div class="card-body mx-5">
-    <form method="post" id="updatecompany">		  
+    <form method="post" id="updatecompany" enctype="multipart/form-data">		  
        <input name="company_id" value="<?php if(!empty($company_id)) echo $company_id;?>"
             class="form-control" id="company_id" type="hidden">
       <div class="form-group">
@@ -102,8 +102,7 @@
         <div class="form-row mb-3">
           <div class="col-md-6">
             <label class="h6" for="logo">Logo</label>
-            <img name="logo" src="../images/ticklogo.png"
-            class="form-control" id="logo" alt="Company logo">
+            <img name="company_logo" src="images/<?php if(!empty($company['company_logo'])) echo $company['company_logo'];?>" class="form-control" id="company_logo" alt="Company logo">
           </div>
           <div class="col-md-6">
             <label class="h6" for="logo_upload">Zgjedh logo tjetër</label>
@@ -120,38 +119,48 @@
 </div>
 <script>
 $("#updatecompany").submit(function () {
-    kontrollues=false;
+    var message = "";
+    var kontrollues=false;
     function validateEmail($email) {
       var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
-      return emailReg.test( $email );
+      return emailReg.test($email);
     }
     if ($("#company_name").val() == "") {
         message="Ju lutem plotësoni emrin e kompanisë<br>";
         kontrollues=true;
     }
     if ($("#address_1").val() == "") {
-        message+="Ju lutem plotësoni një adresë<br>";
-        kontrollues=true;
-    }
-    if ($("#email").val() == "" || !validateEmail($("#email").val())) {
-        message+="Ju lutem plotësoni | verifikoni email-in<br>";
+        message+="Ju lutem plotësoni adresën<br>";
         kontrollues=true;
     }		
-
-    if ($("#phone").val() == "") {
-        message+="Ju lutem plotësoni telefonin<br>";
+    if ($("#mobile_no").val() == "") {
+        message+="Ju lutem plotësoni telefonin mobil<br>";
+        kontrollues=true;
+    }		
+    if ($("#fax_no").val() == "") {
+        message+="Ju lutem plotësoni numrin e faksit<br>";
+        kontrollues=true;
+    }		
+    if ($("#business_no").val() == "") {
+        message+="Ju lutem plotësoni numrin e biznesit<br>";
+        kontrollues=true;
+    }		
+    if ($("#vat").val() == "") {
+        message+="Ju lutem plotësoni TVSH-në<br>";
+        kontrollues=true;
+    }		
+    if ($("#fiscal_no").val() == "") {
+        message+="Ju lutem plotësoni numrin fiskal<br>";
+        kontrollues=true;
+    }		
+    if ($("#bank_acc_1").val() == "") {
+        message+="Ju lutem plotësoni llogrinë bankare<br>";
         kontrollues=true;
     }
-    if ($("#username").val() == "") {
-        message+="Ju lutem plotësoni perdoruesin<br>";
+    if ($("#company_email").val() == "" || !validateEmail($("#company_email").val())) {
+        message+="Ju lutem plotësoni | verifikoni email-in<br>";
         kontrollues=true;
     }
-    if ($("#password").val() == "" || 
-    ($("#password").val()!=$("#confirmPassword").val()) ) {
-        message+="Ju lutem plotësoni | verifikoni fjalekalimin<br>";
-        kontrollues=true;
-    }
-
     if(kontrollues){
         $(".jmesazhi").removeClass("d-none");
         $("#message").html(message);
@@ -159,7 +168,6 @@ $("#updatecompany").submit(function () {
     }else{
         return true;
     }
-
 });
 setTimeout(function(){
     $('.malert').addClass('d-none');

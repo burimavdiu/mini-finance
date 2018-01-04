@@ -1,5 +1,3 @@
-
-/* Funksionet e shtuara per Komanite - Florenti */
 <?php
     function findCompany() {
         global $dbconn;
