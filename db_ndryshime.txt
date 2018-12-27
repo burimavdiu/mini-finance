@@ -1,0 +1,50 @@
+
+--Struktura e tabeles klienti 
+--30/12/2017v1
+DROP TABLE clients
+
+CREATE TABLE `clients` (
+  `client_id` int(11) PRIMARY KEY AUTO_INCREMENT,
+  `client` varchar(50) NOT NULL,
+  `client_type` varchar(50) NOT NULL,
+  `contact_person` varchar(30) NOT NULL,
+  `job_position` varchar(30) NOT NULL,
+  `address_1` varchar(30) NOT NULL,
+  `city` varchar(30) NOT NULL,
+  `state` varchar(30) NOT NULL,
+  `mobile_no` varchar(20) NOT NULL,
+  `tel_no` varchar(20) NOT NULL,
+  `client_email` varchar(30) NOT NULL,
+  `client_web` varchar(40) DEFAULT NULL,
+  `business_register_no` varchar(30) NOT NULL,
+  `fiscal_no` varchar(30) NOT NULL,
+  `vat_no` tinyint(4) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `registration_date` date NOT NULL
+  
+);
+
+--FUND Struktura e tabeles klienti
+
+--Struktura e tabeles municipalities
+
+CREATE TABLE municipalities( 
+ 	municipalities_id int(11) PRIMARY KEY AUTO_INCREMENT,
+	name varchar(30),
+	description TEXT
+ );
+
+-- Modifikimi i tabeles sales
+
+ALTER TABLE sales
+CHANGE activity activity varchar(10) DEFAULT 'Shitje'
+
+UPDATE sales
+SET activity='Blerje'
+WHERE activity='1'
+
+UPDATE sales
+SET activity='Shitje'
+WHERE activity='0'
+
+-- Perfundimi
